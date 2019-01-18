@@ -12,7 +12,9 @@ module.exports = {
       .where({ "project.id": id })
       .first();
 
-    let actionQuery = await db("action").where({ project_id: id });
+    let actionQuery = await db("action")
+      .where({ project_id: id })
+      .select("id", "description", "notes", "completed");
     let result = { ...query, actions: actionQuery };
 
     return result;
