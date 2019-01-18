@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
         {
           name: "Getting There",
           description: `A freelance writer and designer teamed up to do a weekly podcast about their daily lives as 20-somethings—and what you can learn from them in your own life.`,
-          completed: true
+          completed: false
         },
         {
           name: `Jim's Pancakes`,
