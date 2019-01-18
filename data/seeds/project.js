@@ -1,14 +1,14 @@
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
   return knex("project")
-    .del()
+    .truncate()
     .then(function() {
       // Inserts seed entries
       return knex("project").insert([
         {
           name: "Getting There",
           description: `A freelance writer and designer teamed up to do a weekly podcast about their daily lives as 20-somethings—and what you can learn from them in your own life.`,
-          completed: false
+          completed: true
         },
         {
           name: `Jim's Pancakes`,
