@@ -9,7 +9,12 @@ exports.up = function(knex, Promise) {
       .integer("context_id")
       .references("id")
       .inTable("context");
+    table
+      .index(["action_id", "context_id"])
+      .unique(["action_id", "context_id"]);
   });
 };
 
-exports.down = function(knex, Promise) {};
+exports.down = function(knex, Promise) {
+  return knex.schema.dropTableIfExists("actionContext");
+};

@@ -2,15 +2,18 @@ const db = require("../dbConfig");
 module.exports = {
   get: async () => {
     let query = await db("action");
-    if (query.length) {
+    if (query) {
       return query;
     }
     return [];
   },
   getById: async id => {
     let query = await db("action")
-      .where({ id })
-      .first();
+      .join("actionContext", "action.id", "actionContext.action_id")
+      .join("context", "context.id", "actionContext.context_id")
+      .select("action.id");
+    //   .join("context", "actionContext.context_id", "context.id")
+    //   .where({ id });
     return query;
   },
   insert: async action => {
