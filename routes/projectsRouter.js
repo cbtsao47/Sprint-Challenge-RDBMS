@@ -37,5 +37,34 @@ route.post("/", async (req, res) => {
     failed(res);
   }
 });
+route.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    let query = await db.getById(id);
+    if (!query.length) {
+      res.status(errCodes.notFound).json({ message: "Project not found" });
+    } else {
+      await db.remove(id);
+      res.status(errCodes.okay).json({ message: "Delete succesful" });
+    }
+  } catch (err) {
+    failed(res);
+  }
+});
 
+route.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const change = req.body;
+  try {
+    let query = await db.getById(id);
+    if (!query.length) {
+      res.status(errCodes.notFound).json({ message: "Project not found" });
+    } else {
+      await db.update(id, change);
+      res.status(errCodes.accepted).json({ message: "Project updated" });
+    }
+  } catch (err) {
+    failed(res);
+  }
+});
 module.exports = route;
