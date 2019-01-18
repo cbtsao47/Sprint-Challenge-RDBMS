@@ -57,7 +57,7 @@ route.put("/:id", async (req, res) => {
   const change = req.body;
   try {
     let query = await db.getById(id);
-    if (!query.length) {
+    if (!query) {
       res.status(errCodes.notFound).json({ message: "Project not found" });
     } else {
       await db.update(id, change);
