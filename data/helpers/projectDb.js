@@ -9,9 +9,12 @@ module.exports = {
   },
   getById: async id => {
     let query = await db("project")
-      .leftJoin("action", "project.id", "action.project_id")
-      .where({ "project.id": id });
-    return query;
+      .where({ "project.id": id })
+      .first();
+    let actionQuery = await db("action").where({ project_id: id });
+    console.log(actionQuery);
+    let result = { ...query, actions: actionQuery };
+    return result;
   },
   insert: async project => {
     let query = await db("project").insert(project);
