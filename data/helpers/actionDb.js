@@ -11,9 +11,9 @@ module.exports = {
     let query = await db("action")
       .join("actionContext", "action.id", "actionContext.action_id")
       .join("context", "context.id", "actionContext.context_id")
-      .select("action.id");
+      .select("action.id", "context.location")
+      .where({ "action.id": id });
     //   .join("context", "actionContext.context_id", "context.id")
-    //   .where({ id });
     return query;
   },
   insert: async action => {
